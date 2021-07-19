@@ -9,9 +9,10 @@ from .serializers import ProductSerializer
 from .products import products
 # Create your views here.
 
+
 @api_view(['GET'])
 def getRoutes(request):
-    routes= [
+    routes = [
         '/api/products',
         '/api/products/create',
     ]
@@ -21,13 +22,12 @@ def getRoutes(request):
 @api_view(['GET'])
 def getProducts(request):
     products = Product.objects.all()
-    serializer= ProductSerializer(products, many=True)
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def getProduct(request, pk):
-    for i in products:
-        if i['_id'] == pk:
-            product = i
-            break
-    return Response(product)
+    product = Product.objects.get(pk=pk)
+    serializer = ProductSerializer(product)
+    return Response(serializer.data)
