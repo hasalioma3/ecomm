@@ -3,17 +3,16 @@ import { Spinner } from "react-bootstrap";
 function Loader() {
   return (
     <Spinner
-      variant="primary"
-      animation="boarder"
+      animation="border"
       role="status"
       style={{
-        height: "100px",
-        width: "100px",
+        height: "200px",
+        width: "200px",
         margin: "auto",
         display: "block",
       }}
     >
-      <span className="sr-only">Loading ..... </span>
+      <span className="sr-only">Loading...</span>
     </Spinner>
   );
 }
