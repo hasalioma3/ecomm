@@ -9,6 +9,7 @@ import {
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
   USER_DETAILS_FAIL,
+  USER_DETAILS_RESET,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
@@ -52,6 +53,7 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: USER_DETAILS_RESET });
 };
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -103,9 +105,9 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     } = getState;
 
     const config = {
-      headers: { 
+      headers: {
         "Content-type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
@@ -114,10 +116,8 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
-    })
-    
+    });
   } catch (error) {
-
     dispatch({
       type: USER_DETAILS_FAIL,
       payload:
@@ -129,7 +129,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 };
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
-
   try {
     dispatch({
       type: USER_UPDATE_PROFILE_REQUEST,
@@ -147,10 +146,10 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `/api/users/profile/update/`, 
-      user, 
+      `/api/users/profile/update/`,
+      user,
       config
-      );
+    );
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
@@ -163,7 +162,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
