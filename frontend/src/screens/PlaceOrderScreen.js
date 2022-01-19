@@ -17,10 +17,10 @@ import ShippingScreen from "./ShippingScreen";
 import { createOrder } from "../actions/orderActions";
 
 function PlaceOrderScreen({ history }) {
-  const dispatch = useDispatch();
-
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, error, success } = orderCreate;
+
+  const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
 
@@ -43,13 +43,14 @@ function PlaceOrderScreen({ history }) {
     if (success) {
       history.push(`/order/${order._id}`);
     }
-  }, [success, history]);
+  });
 
   const placeOrder = () => {
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
+        shippingPrice: cart.shippingPrice,
         paymentMethod: cart.paymentMethod,
         itemsPrice: cart.itemsPrice,
         taxPrice: cart.taxPrice,

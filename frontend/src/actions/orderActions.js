@@ -16,17 +16,13 @@ export const createOrder = (order) => async (dispatch, getState) => {
     } = getState();
 
     const config = {
-      header: {
+      headers: {
         "Content-type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.post(
-      `/api/orders/profile/add/`,
-      order,
-      config
-    );
+    const { data } = await axios.post(`/api/orders/add/`, order, config);
 
     dispatch({
       type: ORDER_CREATE_SUCCESS,
