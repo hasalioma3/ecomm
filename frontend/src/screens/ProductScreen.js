@@ -41,7 +41,7 @@ function ProductScreen({ match, history }) {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product.image} alt={product.name} fluid rounded/>
+            <Image src={product.image} alt={product.name} fluid rounded />
           </Col>
           <Col md={3}>
             <ListGroup variant="flush">
@@ -108,7 +108,7 @@ function ProductScreen({ match, history }) {
                   <Button
                     onClick={addToCartHandler}
                     className="btn-block"
-                    disabled={product.countInStock === 0}
+                    disabled={product.countInStock <= 0}
                     type="button"
                   >
                     Add to Cart
