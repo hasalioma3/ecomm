@@ -15,7 +15,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "./../components/Message";
 import ShippingScreen from "./ShippingScreen";
 import { createOrder } from "../actions/orderActions";
-
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
 function PlaceOrderScreen({ history }) {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, error, success } = orderCreate;
@@ -42,6 +42,7 @@ function PlaceOrderScreen({ history }) {
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
     }
   });
 
