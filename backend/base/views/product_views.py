@@ -9,17 +9,18 @@ from base.models import Product
 from base.serializers import ProductSerializer
 
 from base.products import products
-# Create your views here.
+
+# Create your views here.npm start
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def getProducts(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(["GET"])
 def getProduct(request, pk):
     product = Product.objects.get(pk=pk)
     serializer = ProductSerializer(product)
